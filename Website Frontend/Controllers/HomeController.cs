@@ -10,14 +10,21 @@ namespace Website_Frontend.Controllers
         public IActionResult Index()
         {
             ViewBag.Title = "Home";
+            
+            return View();
+        }
 
-            RestClient restClient = new RestClient("http://localhost:49987/");
-            RestRequest restRequest = new RestRequest("api/CentresDB/", Method.Get);
-            RestResponse restResponse = restClient.Execute(restRequest);
-
-            List<Centre> centreList = JsonConvert.DeserializeObject<List<Centre>>(restResponse.Content);
-
-            return View(centreList);
+        [HttpGet]
+        public IActionResult AdminLogin(string login)
+        {
+            if (login.Contains("pass"))
+            {
+                return Ok("Success");
+            } 
+            else
+            {
+                return BadRequest("Failed");
+            }
         }
     }
 }
