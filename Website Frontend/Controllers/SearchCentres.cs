@@ -15,7 +15,7 @@ namespace Website_Frontend.Controllers
 
         public IActionResult SearchAllCentres(string searchValue)
         {
-
+            string val = searchValue;
             RestClient restClient = new RestClient("http://localhost:49987/");
             RestRequest restRequest = new RestRequest("api/CentresDB/", Method.Get);
             RestResponse restResponse = restClient.Execute(restRequest);
@@ -31,7 +31,15 @@ namespace Website_Frontend.Controllers
                     matchingList.Add(center);
                 }
             }
-            return View(matchingList);
+            
+            if (matchingList.Count != 0)
+            {
+                return Ok(matchingList);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }
