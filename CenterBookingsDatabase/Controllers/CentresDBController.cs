@@ -54,6 +54,7 @@ namespace CenterBookingsDatabase.Controllers
             try
             {
                 db.SaveChanges();
+                return Ok(centre);
             }
             catch (DbUpdateConcurrencyException)
             {

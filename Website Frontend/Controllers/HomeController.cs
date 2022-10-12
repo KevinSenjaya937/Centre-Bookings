@@ -13,18 +13,5 @@ namespace Website_Frontend.Controllers
             
             return View();
         }
-
-        [HttpGet]
-        public IActionResult AdminLogin(string login)
-        {
-            if (login.Contains("pass"))
-            {
-                return Ok("Success");
-            } 
-            else
-            {
-                return BadRequest("Failed");
-            }
-        }
     }
 }

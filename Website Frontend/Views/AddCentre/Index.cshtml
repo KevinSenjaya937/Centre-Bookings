@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <form name="addCentre">
+        <label for="centreId">Centre ID:</label>
+        <input type="text" id="centreId" name="centreId"><br><br>
+        <label for="centreName">Centre Name:</label>
+        <input type="text" id="centreName" name="centreName"><br><br>
+    </form>
+    <input type="submit" value="Add Centre" onclick="addCentreToDB()">
+</div>
+
+<script>
+
+    function addCentreToDB() 
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/addcentre/addcentre',
+            contentType: 'application/json',
+            data: JSON.stringify(
+            {
+                "Id": $('#centreId').val(),
+                "Name": $('#centreName').val(),
+            }),
+            success: function(data, textStatus, jQxhr) {
+                alert("Centre Added");
+            }, 
+            error: function(xhr, textStatus, error) {
+                alert("Error Adding Centre");
+            }
+        });
+    }
+
+</script>

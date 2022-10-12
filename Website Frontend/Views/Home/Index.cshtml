@@ -4,29 +4,77 @@
 @{
 }
 
-<div id="loginForm">
-    <br>
-    <br>
-    <br>
-    <br>
-    <form name="adminLogin">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username"><br><br>
-        <label for="password">Password:</label>
-        <input type="text" id="password" name="password"><br><br>
-    </form>
-    <input type="submit" value="Admin Login" onclick="login()">
+<input type="button" id="adminLoginBtn" value="Login" onclick="adminLoginPage()">
+<input type="button" id="centreListBtn" value="Centre List" onclick="centreListPage()">
+<input type="button" id="searchCentresBtn" value="Search Centres" onclick="searchCentresPage()">
+<input type="button" id="adminShowBookingsBtn" value="Admin Show Bookings" onclick="adminShowBookings()">
+<input type="hidden" id="adminCentreListBtn" value="Admin Centre List" onclick="adminCentreListPage()">
+<input type="hidden" id="addCentreBtn" value="Admin Add Centre" onclick="addCentrePage()">
+    
+<div id="functionalityDiv"></div>
+
+<div id="searchResultsDiv"></div>
 
 
-</div>
 
 <script>
 
-    var admin; 
+
+    function adminLoginPage() {
+        $.ajax({
+            url: "/adminlogin/index"
+        }).done(function(data) {
+            $("#functionalityDiv").html(data);
+        });
+    }
+
+    function centreListPage() {
+        $.ajax({
+            url: "/centrelist/index"
+        }).done(function(data) {
+            $("#functionalityDiv").html(data);
+        });
+    }
+
+    function addCentrePage() {
+        $.ajax({
+            url: "/addcentre/index"
+        }).done(function(data) {
+            $("#functionalityDiv").html(data);
+        });
+    }
+
+    function adminCentreListPage() {
+        $.ajax({
+            url: "/admincentrelist/index"
+        }).done(function(data) {
+            $("#functionalityDiv").html(data);
+        });
+    }
+
+    function searchCentresPage() {
+        $.ajax({
+            url: "/searchcentres/index"
+        }).done(function(data) {
+            $("#functionalityDiv").html(data);
+        });
+    }
+
+    function adminShowBookings() {
+        $.ajax({
+            url: "/adminshowbookings/index"
+        }).done(function(data) {
+            $("#functionalityDiv").html(data);
+        });
+    }
+
+
 
     function login() {
         let usernameInput = document.getElementById('username').value;
         let passwordInput = document.getElementById('password').value;
+        let centreListBtn = document.getElementById('adminCentreListBtn');
+        let addCentreBtn = document.getElementById('addCentreBtn');
         var login = "fail";
 
         if ((usernameInput == "admin") && (passwordInput == "adminpass")) {
@@ -37,27 +85,25 @@
 
         $.ajax({
             type: 'get',
-            url: '/home/adminlogin/',
+            url: '/adminlogin/adminlogin/',
             data: "login="+JSON.stringify(login),
             contentType: 'application/json',
             processData: false,
             success: function(data, textStatus, jQxhr) {
+                centreListBtn.type = "submit";
+                addCentreBtn.type = "submit";
+                login = true;
                 alert("Admin Login Successful");
             },
             error: function(jqXhr, textStatus, errorThrown) {
+                centreListBtn.type = "hidden";
+                addCentreBtn.type = "hidden";
+                login = false;
                 alert("Admin Login Failed");
             }
         });
 
     }
-
-    function centreListPage() {
-        var $mainDiv = $('#main');
-        $.get("/centrelist/index", function(data) {
-            $mainDiv.replaceWith(data);
-        });
-    }
-
 
 </script>
 
