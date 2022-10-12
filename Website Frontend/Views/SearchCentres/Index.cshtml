@@ -23,14 +23,15 @@
             type: "get",
             url: "/searchcentres/searchallcentres/",
             data: "searchValue="+centreName,
+            contentType: 'application/json',
             success: function(data) {
                 console.log(data);
-                var obj = JSON.parse(data);
-                obj.foreach((item) => {
+                data = JSON.parse(data);
+                for (item of data) {
                     let li = document.createElement("li");
                     li.innerText = item.Name;
                     list.appendChild(li);
-                })
+                }
             },
             error: function(jqXhr, textStatus, errorThrown) {
                 alert("Error: No matching centres found!");
