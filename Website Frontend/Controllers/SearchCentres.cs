@@ -26,15 +26,17 @@ namespace Website_Frontend.Controllers
 
             foreach (Centre center in centreList)
             {
-                if (center.Name.Contains(searchValue))
+                if (center.Name.ToLower() == searchValue.ToLower())
                 {
                     matchingList.Add(center);
                 }
             }
+
+            
             
             if (matchingList.Count != 0)
             {
-                return Ok(matchingList);
+                return Ok(JsonConvert.SerializeObject(matchingList));
             }
             else
             {
