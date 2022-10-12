@@ -22,7 +22,7 @@
         $.ajax({
             type: "get",
             url: "/searchcentres/searchallcentres/",
-            data: "searchValue="+JSON.stringify(centreName),
+            data: "searchValue="+centreName,
             success: function(data) {
                 data.foreach((item) => {
                     let li = document.createElement("li");
