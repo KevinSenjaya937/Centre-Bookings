@@ -7,14 +7,7 @@
 }
 
 <div>
-
-    <table>
-
-        <tr>
-            <td>List of Centres</td>
-            <td>@Html.DropDownList("Centres", (IEnumerable<Centre>)ViewBag.Centres)</td>
-        </tr>
-    </table>
+<select asp-for="Id" asp-items="@(new SelectList(@ViewBag.Centres,"Id","Name"))"></select>
     
 
 </div>

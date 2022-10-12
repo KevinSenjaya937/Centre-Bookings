@@ -9,7 +9,7 @@ namespace Website_Frontend.Controllers
     {
         public IActionResult Index()
         {
-            #region ViewBag
+
             ViewBag.Title = "AdminShowBookings";
             RestClient restClient = new RestClient("http://localhost:49987/");
             RestRequest restRequest = new RestRequest("api/CentresDB/", Method.Get);
@@ -17,8 +17,8 @@ namespace Website_Frontend.Controllers
 
             List<Centre> centreList = JsonConvert.DeserializeObject<List<Centre>>(restResponse.Content);
 
-            ViewBag.Centres = centreList;
-            #endregion
+            ViewBag.Centres = centreList; 
+
             return View();
         }
     }
