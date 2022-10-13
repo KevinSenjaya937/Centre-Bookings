@@ -41,7 +41,7 @@ namespace Website_Frontend.Controllers
             }
             else
             {
-                return BadRequest();
+                return BadRequest("No matching centres found!");
             }
         }
     }

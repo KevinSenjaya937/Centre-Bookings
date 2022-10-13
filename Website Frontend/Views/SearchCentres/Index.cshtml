@@ -8,6 +8,11 @@
 
 
 <div id="tableview">
+    <h2>Search For A Centre</h2>
+    <br>
+    <br>
+    <br>
+    <br>
     <label for="centreName">Centre Name:</label>
     <input type="text" id="centreName" name="centreName"><br><br>
     <input type="submit" value="Search Centres" onclick="matchingCentres()">
@@ -36,8 +41,15 @@
                     list.appendChild(li);
                 }
             },
-            error: function(jqXhr, textStatus, errorThrown) {
-                alert("Error: No matching centres found!");
+            error: function(xhr, textStatus, errorThrown) {
+                var errorText = JSON.stringify(xhr);
+                var myText = JSON.parse(errorText);
+
+                alert(myText.responseText);
+
+                console.log(xhr.statusText);
+                console.log(textStatus.toString());
+                console.log(error.toString());
             }
 
         });

@@ -8,6 +8,11 @@
 }
 
 <div id="tableview">
+    <h2>List of Centres</h2>
+    <br>
+    <br>
+    <br>
+    <br>
     <table>
         @foreach (var centre in Model)
         {
@@ -20,29 +25,3 @@
     </table>
 </div>
 
-
-
-<script>
-
-    function getLoginStatus() {
-        let centreListBtn = document.getElementById('adminCentreListBtn');
-        let addCentreBtn = document.getElementById('addCentreBtn');
-
-        $.ajax({
-            type: 'get',
-            url: '/adminlogin/getloginstatus/',
-            contentType: 'application/json',
-            processData: false,
-            success: function(data, textStatus, jQxhr) {
-                centreListBtn.type = "button";
-                addCentreBtn.type = "button";
-            },
-            error: function(jqXhr, textStatus, errorThrown) {
-                centreListBtn.type = "hidden";
-                addCentreBtn.type = "hidden";
-            }
-        });
-    }
-    
-
-</script>

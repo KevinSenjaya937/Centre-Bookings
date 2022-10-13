@@ -3,13 +3,17 @@
 *@
 @{
 }
-
+<h2>DC Assignment 2 - Part A</h2>
+<br>
+<br>
 <input type="button" id="adminLoginBtn" value="Login" onclick="adminLoginPage()">
 <input type="button" id="centreListBtn" value="Centre List" onclick="centreListPage()">
 <input type="button" id="searchCentresBtn" value="Search Centres" onclick="searchCentresPage()">
 <input type="button" id="makeBookingsBtn" value="Book A Centre" onclick="makeBookingsPage()">
 <input type="button" id="nextAvailableDateBtn" value="Get Next Available Date" onclick="nextAvailableDataPage()">
-<input type="button" id="adminShowBookingsBtn" value="Admin Show Bookings" onclick="adminShowBookings()">
+<br>
+<br>
+<input type="hidden" id="adminShowBookingsBtn" value="Admin Show Bookings" onclick="adminShowBookings()">
 <input type="hidden" id="adminCentreListBtn" value="Admin Centre List" onclick="adminCentreListPage()">
 <input type="hidden" id="addCentreBtn" value="Admin Add Centre" onclick="addCentrePage()">
     
@@ -93,6 +97,9 @@
         let passwordInput = document.getElementById('password').value;
         let centreListBtn = document.getElementById('adminCentreListBtn');
         let addCentreBtn = document.getElementById('addCentreBtn');
+        let showBookingsBtn = document.getElementById('adminShowBookingsBtn');
+
+
         var login = "fail";
 
         if ((usernameInput == "admin") && (passwordInput == "adminpass")) {
@@ -110,14 +117,22 @@
             success: function(data, textStatus, jQxhr) {
                 centreListBtn.type = "submit";
                 addCentreBtn.type = "submit";
-                login = true;
+                showBookingsBtn.type = "submit"
                 alert("Admin Login Successful");
             },
-            error: function(jqXhr, textStatus, errorThrown) {
+            error: function(xhr, textStatus, error) {
+                var errorText = JSON.stringify(xhr);
+                var myText = JSON.parse(errorText);
+
                 centreListBtn.type = "hidden";
                 addCentreBtn.type = "hidden";
-                login = false;
-                alert("Admin Login Failed");
+                showBookingsBtn.type = "hidden"
+
+                alert(myText.responseText);
+
+                console.log(xhr.statusText);
+                console.log(textStatus.toString());
+                console.log(error.toString());
             }
         });
 

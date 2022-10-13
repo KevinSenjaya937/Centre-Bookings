@@ -3,7 +3,8 @@
 *@
 @{
 }
-<div>
+<div id="addcentrediv">
+    <h2>Add A New Centre - Admin</h2>
     <br>
     <br>
     <br>
@@ -31,10 +32,17 @@
                 "Name": $('#centreName').val(),
             }),
             success: function(data, textStatus, jQxhr) {
-                alert("Centre Added");
+                alert("Centre Successfully Added");
             }, 
             error: function(xhr, textStatus, error) {
-                alert("Error Adding Centre");
+                var errorText = JSON.stringify(xhr);
+                var myText = JSON.parse(errorText);
+
+                alert(myText.responseText);
+
+                console.log(xhr.statusText);
+                console.log(textStatus.toString());
+                console.log(error.toString());
             }
         });
     }

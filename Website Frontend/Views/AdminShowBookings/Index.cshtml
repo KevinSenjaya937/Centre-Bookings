@@ -6,12 +6,17 @@
     @model Website_Frontend.Models.Centre;
 }
 
-<div>
-<select id="centreSelect" asp-for="Id" asp-items="@(new SelectList(@ViewBag.Centres,"Id","Name"))" onchange="createBookingsTable()"></select>
+<div id="showbookings">
+    <h2>Show Centre Bookings - Admin</h2>
+    <br>
+    <br>
+    <br>
+    <br>
+    <select id="centreSelect" asp-for="Id" asp-items="@(new SelectList(@ViewBag.Centres,"Id","Name"))" onchange="createBookingsTable()"></select>
     
 </div>
 
-<div id="tableResults">
+<div id="tableresults">
 
 </div>
 

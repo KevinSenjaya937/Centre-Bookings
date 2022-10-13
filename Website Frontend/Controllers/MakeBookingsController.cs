@@ -38,9 +38,13 @@ namespace Website_Frontend.Controllers
                 {
                     return Ok("Successfully Added");
                 }
+                else if (restResponse.StatusCode == System.Net.HttpStatusCode.Conflict)
+                {
+                    return Conflict("Matching Booking ID Found! Please change ID to add booking.");
+                }
                 else
                 {
-                    return BadRequest("Adding Failed");
+                    return BadRequest("Failed Adding Booking");
                 }
             }
                 

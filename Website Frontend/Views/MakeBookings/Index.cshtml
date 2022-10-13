@@ -6,7 +6,8 @@
     @model Website_Frontend.Models.Centre;
 }
 
-<div>
+<div id="makebookings">
+    <h2>Make A Booking</h2>
     <br>
     <br>
     <br>
@@ -54,8 +55,7 @@
                 "BookedBy": $('#bookedBy').val(),
             }),
             success: function(data, textStatus, jQxhr) {
-                alert("Data Inserted");
-                document.getElementById('debugTextInsert').innerText = "";
+                alert("Booking Created!");
             }, 
             error: function(xhr, textStatus, error) {
                 var errorText = JSON.stringify(xhr);

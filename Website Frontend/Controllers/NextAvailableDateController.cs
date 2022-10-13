@@ -58,7 +58,7 @@ namespace Website_Frontend.Controllers
             }
             else
             {
-                return BadRequest("This centre has no bookings.");
+                return BadRequest("This centre has no bookings!");
             }
         }
     }

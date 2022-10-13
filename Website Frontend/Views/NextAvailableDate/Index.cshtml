@@ -6,7 +6,12 @@
     @model Website_Frontend.Models.Centre;
 }
 
-<div>
+<div id="nextavaildate">
+    <h2>Find Next Available Date</h2>
+    <br>
+    <br>
+    <br>
+    <br>
     <select id="centreSelectDate" asp-for="Id" asp-items="@(new SelectList(@ViewBag.Centres,"Id","Name"))" onchange="getNextAvailableDate()"></select>
     <br>
     <label for="nextAvailable">Next Available Date:</label>
@@ -18,6 +23,7 @@
     function getNextAvailableDate() {
         let dropDown = document.getElementById('centreSelectDate');
         let resultText = document.getElementById('nextAvailable');
+        resultText.value = "";
 
         $.ajax({
             type: "get",
@@ -30,8 +36,15 @@
 
                 resultText.value = data;
             },
-            error: function(jqXhr, textStatus, errorThrown) {
-                alert("Error: No matching centres found!");
+            error: function(xhr, textStatus, errorThrown) {
+                var errorText = JSON.stringify(xhr);
+                var myText = JSON.parse(errorText);
+
+                alert(myText.responseText);
+
+                console.log(xhr.statusText);
+                console.log(textStatus.toString());
+                console.log(error.toString());
             }
 
         });

@@ -4,7 +4,8 @@
 @{
 }
 
-<div id="loginForm">
+<div id="loginform">
+    <h2>Admin Login - Admin</h2>
     <br>
     <br>
     <br>
@@ -22,13 +23,14 @@
 
 <script>
 
-    var admin; 
-
     function login() {
         let usernameInput = document.getElementById('username').value;
         let passwordInput = document.getElementById('password').value;
         let centreListBtn = document.getElementById('adminCentreListBtn');
         let addCentreBtn = document.getElementById('addCentreBtn');
+        let showBookingsBtn = document.getElementById('adminShowBookingsBtn');
+
+
         var login = "fail";
 
         if ((usernameInput == "admin") && (passwordInput == "adminpass")) {
@@ -46,16 +48,28 @@
             success: function(data, textStatus, jQxhr) {
                 centreListBtn.type = "submit";
                 addCentreBtn.type = "submit";
+                showBookingsBtn.type = "submit"
                 alert("Admin Login Successful");
             },
-            error: function(jqXhr, textStatus, errorThrown) {
+            error: function(xhr, textStatus, error) {
+                var errorText = JSON.stringify(xhr);
+                var myText = JSON.parse(errorText);
+
                 centreListBtn.type = "hidden";
                 addCentreBtn.type = "hidden";
-                alert("Admin Login Failed");
+                showBookingsBtn.type = "hidden"
+
+                alert(myText.responseText);
+
+                console.log(xhr.statusText);
+                console.log(textStatus.toString());
+                console.log(error.toString());
             }
         });
 
     }
+
+    
 
 
 

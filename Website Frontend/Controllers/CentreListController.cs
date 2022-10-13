@@ -20,26 +20,5 @@ namespace Website_Frontend.Controllers
 
             return View(centreList);
         }
-
-        public IActionResult SearchCentre(string searchValue)
-        {
-            RestClient restClient = new RestClient("http://localhost:49987/");
-            RestRequest restRequest = new RestRequest("api/CentresDB/", Method.Get);
-            RestResponse restResponse = restClient.Execute(restRequest);
-
-            List<Centre> centreList = JsonConvert.DeserializeObject<List<Centre>>(restResponse.Content);
-
-            IList<Centre> matchingList = new List<Centre>();
-
-            foreach (Centre center in centreList)
-            {
-                if (center.Name.Contains(searchValue))
-                {
-                    matchingList.Add(center);
-                }
-            }
-
-            return Json(matchingList);
-        }
     }
 }

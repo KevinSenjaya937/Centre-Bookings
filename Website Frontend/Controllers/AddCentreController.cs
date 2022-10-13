@@ -24,11 +24,15 @@ namespace Website_Frontend.Controllers
 
             if (restResponse.StatusCode == HttpStatusCode.Created)
             {
-                return Ok("Successfully Added");
+                return Ok("Centre Successfully Added");
+            }
+            else if (restResponse.StatusCode == HttpStatusCode.Conflict)
+            {
+                return Conflict("Matching Centre ID Found! Please change to add centre.");
             }
             else
             {
-                return BadRequest(restResponse.Content);
+                return BadRequest("Failed to add centre to DB.");
             }
         }
     }

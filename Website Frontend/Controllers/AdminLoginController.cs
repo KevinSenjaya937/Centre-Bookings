@@ -15,11 +15,11 @@ namespace Website_Frontend.Controllers
         {
             if (login.Contains("pass"))
             {
-                return Ok("Success");
+                return Ok("Successully Logged In.");
             }
             else
             {
-                return BadRequest("Failed");
+                return BadRequest("Username or Password is incorrect.");
             }
         }
     }
