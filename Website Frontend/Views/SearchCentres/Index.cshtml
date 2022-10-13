@@ -17,6 +17,7 @@
 <script>
 
     function matchingCentres() {
+        
         let list = document.getElementById('matchingCentresList');
         let centreName = document.getElementById('centreName').value;
         $.ajax({
@@ -27,7 +28,9 @@
             success: function(data) {
                 console.log(data);
                 data = JSON.parse(data);
+                list.innerHTML = "";
                 for (item of data) {
+                    
                     let li = document.createElement("li");
                     li.innerText = item.Name;
                     list.appendChild(li);

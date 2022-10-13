@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @using Website_Frontend.Models;
+    @model Website_Frontend.Models.Centre;
+}
+
+<div>
+    <select id="centreSelectDate" asp-for="Id" asp-items="@(new SelectList(@ViewBag.Centres,"Id","Name"))" onchange="getNextAvailableDate()"></select>
+    <br>
+    <label for="nextAvailable">Next Available Date:</label>
+    <input type="text" id="nextAvailable" name="nextAvailable"><br><br>
+</div>
+
+<script>
+
+    function getNextAvailableDate() {
+        let dropDown = document.getElementById('centreSelectDate');
+        let resultText = document.getElementById('nextAvailable');
+
+        $.ajax({
+            type: "get",
+            url: "/nextavailabledate/getnextavailabledate/",
+            data: "centreName="+dropDown.options[dropDown.selectedIndex].text,
+            contentType: 'application/json',
+            success: function(data) {
+                console.log(data);
+                data = JSON.parse(data);
+
+                resultText.value = data;
+            },
+            error: function(jqXhr, textStatus, errorThrown) {
+                alert("Error: No matching centres found!");
+            }
+
+        });
+    }
+
+
+</script>

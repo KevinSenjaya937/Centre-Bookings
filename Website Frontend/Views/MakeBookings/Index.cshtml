@@ -1,0 +1,73 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @using Website_Frontend.Models;
+    @model Website_Frontend.Models.Centre;
+}
+
+<div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <select id="centresDD" asp-for="Id" asp-items="@(new SelectList(@ViewBag.Centres,"Id","Name"))"></select>
+
+    <br>
+    <br>
+    <label for="bookingId">Booking ID:</label>
+    <input type="text" id="bookingId" name="bookingId"><br><br>
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate"><br><br>
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate"><br><br>
+    <label for="bookedBy">Booking Under:</label>
+    <input type="text" id="bookedBy" name="bookedBy"><br><br>
+    <input type="submit" value="Add Booking" onclick="insertBooking()">
+
+</div>
+
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById('startDate').setAttribute('min', today);
+    document.getElementById('endDate').setAttribute('min', today);
+
+    function insertBooking()
+    {
+        let dropDown = document.getElementById('centresDD');
+
+        $.ajax({
+            type: 'POST',
+            url: 'makebookings/insert',
+            contentType: 'application/json',
+            data: JSON.stringify(
+            {
+                "Id": $('#bookingId').val(),
+                "CentreName": dropDown.options[dropDown.selectedIndex].text,
+                "StartDate": $('#startDate').val(),
+                "EndDate": $('#endDate').val(),
+                "BookedBy": $('#bookedBy').val(),
+            }),
+            success: function(data, textStatus, jQxhr) {
+                alert("Data Inserted");
+                document.getElementById('debugTextInsert').innerText = "";
+            }, 
+            error: function(xhr, textStatus, error) {
+                var errorText = JSON.stringify(xhr);
+                var myText = JSON.parse(errorText);
+
+                alert(myText.responseText);
+
+                console.log(xhr.statusText);
+                console.log(textStatus.toString());
+                console.log(error.toString());
+            }
+        });
+    }
+
+</script>

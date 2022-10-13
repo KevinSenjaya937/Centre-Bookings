@@ -26,7 +26,8 @@ namespace Website_Frontend.Controllers
 
             foreach (Centre center in centreList)
             {
-                if (center.Name.ToLower() == searchValue.ToLower())
+
+                if (center.Name.ToLower().Contains(searchValue.ToLower()))
                 {
                     matchingList.Add(center);
                 }
