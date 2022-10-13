@@ -17,14 +17,18 @@
 </div>
 
 <div id="tableresults">
-
+    <table id="bookingsTable"></table>
 </div>
 
 <script>
 
     function createBookingsTable() {
         let centreSelect = document.getElementById('centreSelect');
-        let divTable = document.getElementById('tableResults');
+        let bookingsTable = document.getElementById('bookingsTable');
+
+        while (bookingsTable.rows.length > 0) {
+            bookingsTable.deleteRow(0);
+        }
 
         $.ajax({
             type: "get",
@@ -35,26 +39,21 @@
                 console.log(data);
                 data = JSON.parse(data);
 
-                var headers = ["ID", "Centre Name", "Start Date", "End Date", "Booked By"];
-                var table = document.createElement("TABLE");
-
-                for (var i = 0; i < data.length; i++) {
-                    var row = table.insertRow(i);
-                    row.insertCell(0).innerHTML = data[i].Id;
-                    row.insertCell(1).innerHTML = data[i].CentreName;
-                    row.insertCell(2).innerHTML = data[i].StartDate;
-                    row.insertCell(3).innerHTML = data[i].EndDate;
-                    row.insertCell(4).innerHTML = data[i].BookedBy;
-
+                for (booking of data) {
+                    var row = document.createElement('tr');
+                    for (val of Object.values(booking)) {
+                        var col = document.createElement('td');
+                        col.textContent = val;
+                        row.appendChild(col);
+                    }
+                    bookingsTable.appendChild(row);
                 }
-
-                var header = table.createTHead();
+                var headers = ["ID", "Centre Name", "Start Date", "End Date", "Booked By"];
+                var header = bookingsTable.createTHead();
                 var headerRow = header.insertRow(0);
                 for (var i = 0; i < headers.length; i++) {
                     headerRow.insertCell(i).innerHTML = headers[i];
                 }
-
-                document.body.append(table);
             },
             error: function(xhr, textStatus, error) {
                 var errorText = JSON.stringify(xhr);

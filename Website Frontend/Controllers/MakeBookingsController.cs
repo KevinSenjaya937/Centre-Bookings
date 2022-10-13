@@ -74,7 +74,7 @@ namespace Website_Frontend.Controllers
 
             foreach (Booking booking in matchingBookings)
             {
-                if (requestedStart <= booking.StartDate && requestedEnd <= booking.EndDate)
+                if (requestedStart < booking.EndDate && requestedEnd > booking.StartDate)
                 {
                     overlaps = true;
                 }

@@ -9,6 +9,10 @@ div#header {
     height: 150px;
 }
 
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 
 div#tableview {
     width: 300px;
@@ -59,7 +63,10 @@ div#tableresults {
     margin-right: auto;
 }
 
-table, th, td {
+table, tr, th, td {
     border: 1px solid black;
+    border-collapse: collapse;
+    padding: 20px;
+    white-space: nowrap;
 }
 
