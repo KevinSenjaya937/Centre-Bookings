@@ -24,29 +24,42 @@ namespace Website_Frontend.Controllers
         [HttpPost]
         public IActionResult Insert([FromBody] Booking booking)
         {
-            if (SearchDateOverlap(booking))
+            DateTime today = DateTime.Today;
+            if (booking.StartDate > booking.EndDate)
             {
-                return BadRequest("Requested Booking Overlaps Another Booking!");
+                return BadRequest("End Date cannot be before Start Date");
+            }
+            else if (booking.StartDate < today)
+            {
+                return BadRequest("No back dates are allowed for Start Date");
             }
             else
             {
-                RestRequest restRequest = new RestRequest("api/Bookings/", Method.Post);
-                restRequest.AddJsonBody(JsonConvert.SerializeObject(booking));
-                RestResponse restResponse = restClient.Execute(restRequest);
-
-                if (restResponse.StatusCode == System.Net.HttpStatusCode.Created)
+                if (SearchDateOverlap(booking))
                 {
-                    return Ok("Successfully Added");
-                }
-                else if (restResponse.StatusCode == System.Net.HttpStatusCode.Conflict)
-                {
-                    return Conflict("Matching Booking ID Found! Please change ID to add booking.");
+                    return BadRequest("Requested Booking Overlaps Another Booking!");
                 }
                 else
                 {
-                    return BadRequest("Failed Adding Booking");
+                    RestRequest restRequest = new RestRequest("api/Bookings/", Method.Post);
+                    restRequest.AddJsonBody(JsonConvert.SerializeObject(booking));
+                    RestResponse restResponse = restClient.Execute(restRequest);
+
+                    if (restResponse.StatusCode == System.Net.HttpStatusCode.Created)
+                    {
+                        return Ok("Successfully Added");
+                    }
+                    else if (restResponse.StatusCode == System.Net.HttpStatusCode.Conflict)
+                    {
+                        return Conflict("Matching Booking ID Found! Please change ID to add booking.");
+                    }
+                    else
+                    {
+                        return BadRequest("Failed Adding Booking");
+                    }
                 }
             }
+            
                 
         }
 
@@ -74,7 +87,7 @@ namespace Website_Frontend.Controllers
 
             foreach (Booking booking in matchingBookings)
             {
-                if (requestedStart < booking.EndDate && requestedEnd > booking.StartDate)
+                if (requestedStart <= booking.EndDate && requestedEnd >= booking.StartDate)
                 {
                     overlaps = true;
                 }
